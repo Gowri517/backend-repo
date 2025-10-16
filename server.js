@@ -11,9 +11,11 @@ app.use(cors());
 app.use(express.static("public")); // serve frontend
 
 // MongoDB connection
-mongoose.connect("mongodb://127.0.0.1:27017/userDashboardDB")
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch(err => console.error(err));
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/authdb";
+
+mongoose.connect(MONGO_URI)
+    .then(() => console.log("✅ MongoDB Connected"))
+    .catch(err => console.log(err));
 
 // Middleware to protect routes
 function auth(req, res, next) {
